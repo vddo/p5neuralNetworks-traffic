@@ -23,7 +23,11 @@ def main():
     images, labels = load_data(sys.argv[1])
 
     # Split data into training and testing sets
+    
+    # tf.keras.utils.to_categorical() converts a vector of integers
+    # to a binary class matrix. Categorising the labels
     labels = tf.keras.utils.to_categorical(labels)
+    
     x_train, x_test, y_train, y_test = train_test_split(
         np.array(images), np.array(labels), test_size=TEST_SIZE
     )
@@ -99,7 +103,7 @@ def get_model():
     `input_shape` of the first layer is `(IMG_WIDTH, IMG_HEIGHT, 3)`.
     The output layer should have `NUM_CATEGORIES` units, one for each category.
     """
-    raise NotImplementedError
+
 
 
 if __name__ == "__main__":
