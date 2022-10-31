@@ -1,4 +1,4 @@
-import cv2
+import cv2 as cv
 import numpy as np
 import os
 import sys
@@ -59,7 +59,39 @@ def load_data(data_dir):
     corresponding `images`.
     """
 
+    # Define list to store images and labels
+    list_images = list()
+    list_labels = list()
     
+    # Loop over sub directories
+    for subdir in os.listdir(data_dir):
+        
+        # Only take directories
+        path_subdir = os.path.join(data_dir, subdir)
+        if os.path.isdir(path_subdir):
+            
+            # Loop over files in subdirectory
+            for file in os.listdir(path_subdir):
+                
+                # Only take files
+                path_file = os.path.join(path_subdir, file)
+                if os.path.isfile(path_file):
+                    
+                    # List images
+                    list_images.append(
+                        cv.resize(
+                            cv.imread(
+                                path_file
+                            ), (IMG_WIDTH, IMG_HEIGHT), interpolation=cv.INTER_CUBIC
+                        )
+                    )
+
+                    # List labels
+                    list_labels.append(int(subdir))
+                    
+    return((list_images, list_labels))
+                    
+                    
 
 def get_model():
     """
