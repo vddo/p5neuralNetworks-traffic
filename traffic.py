@@ -7,10 +7,10 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 
 EPOCHS = 10
-IMG_WIDTH = 30
-IMG_HEIGHT = 30
+IMG_WIDTH = 50
+IMG_HEIGHT = 50
 NUM_CATEGORIES = 43
-TEST_SIZE = 0.4
+TEST_SIZE = 0.2
 
 
 def main():
@@ -82,11 +82,15 @@ def load_data(data_dir):
                 if os.path.isfile(path_file):
                     
                     # List images
+                    
+                    # Convert color from BGR as default in cv2 to RGB
                     list_images.append(
-                        cv.resize(
+                        cv.cvtColor(
+                            cv.resize(
                             cv.imread(
                                 path_file
-                            ), (IMG_WIDTH, IMG_HEIGHT), interpolation=cv.INTER_CUBIC
+                            ), (IMG_WIDTH, IMG_HEIGHT), interpolation=cv.INTER_LINEAR
+                        ), cv.COLOR_BGR2RGB
                         )
                     )
 
