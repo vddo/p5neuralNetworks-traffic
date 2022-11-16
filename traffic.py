@@ -88,7 +88,7 @@ def load_data(data_dir):
                         cv.cvtColor(
                             cv.resize(
                             cv.imread(
-                                path_file
+                                path_file    # "2" should be the cv::IMREAD_ANYDEPTH = 2 parameter (https://stackoverflow.com/questions/61631851/error-215assertion-failed-ssize-empty-in-function-cvresize-opencv)
                             ), (IMG_WIDTH, IMG_HEIGHT), interpolation=cv.INTER_LINEAR
                         ), cv.COLOR_BGR2RGB
                         )
