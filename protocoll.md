@@ -291,4 +291,159 @@ epochs = 10
 - try one more con2d layer
 
 
+### model_04.01 third conv2d layer
 
+test_size=0.3
+
+    layers.Conv2D(64, (3, 3), activation='relu', input_shape=(50, 50, 3)),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Dropout(0.3),
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+    layers.Dense(num_classes, activation='softmax')
+
+epochs = 12
+
+- results are ok
+
+### model_04.02 test_size=0.5
+
+test_size = 0.5
+epochs = 12
+
+- result worseä
+
+
+### model_05.01 more nodes in hidden layer
+
+    layers.Conv2D(64, (3, 3), activation='relu', input_shape=(50, 50, 3)),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Dropout(0.3),
+    layers.Flatten(),
+    layers.Dense(256, activation='relu'),
+    layers.Dense(num_classes, activation='softmax')
+
+epochs = 12
+
+### model_06.01 second hidden layer
+
+test_size=0.1
+
+model_1 = Sequential([
+    layers.Conv2D(64, (3, 3), activation='relu', input_shape=(50, 50, 3)),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Dropout(0.3),
+    layers.Flatten(),
+    layers.Dense(256, activation='relu'),
+    layers.Dense(64, activation='relu'),
+    layers.Dense(num_classes, activation='softmax')
+])
+
+epochs = 12
+
+
+### model_06-02 larger second hidden layer
+
+test_size=0.1
+
+model_1 = Sequential([
+    layers.Conv2D(64, (3, 3), activation='relu', input_shape=(50, 50, 3)),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Dropout(0.3),
+    layers.Flatten(),
+    layers.Dense(256, activation='relu'),
+    layers.Dense(128, activation='relu'),
+    layers.Dense(num_classes, activation='softmax')
+
+epochs = 12
+
+- results not good
+
+
+### model_06-03 dropout = 0.5
+
+test_size=0.1
+
+model_1 = Sequential([
+    layers.Conv2D(64, (3, 3), activation='relu', input_shape=(50, 50, 3)),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Dropout(0.5),
+    layers.Flatten(),
+    layers.Dense(256, activation='relu'),
+    layers.Dense(128, activation='relu'),
+    layers.Dense(num_classes, activation='softmax')
+
+    epochs = 12
+
+
+### model_07-01 larger second hidden layer
+
+test_size=0.1
+
+model_1 = Sequential([
+    layers.Conv2D(64, (3, 3), activation='relu', input_shape=(50, 50, 3)),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Dropout(0.5),
+    layers.Flatten(),
+    layers.Dense(256, activation='relu'),
+    layers.Dense(256, activation='relu'),
+    layers.Dense(num_classes, activation='softmax')
+])
+
+epochs = 12
+
+
+### test model_07-02 with smaller image size 40x40
+
+- result worse
+
+### model_07-03 first conv2d 64 to 128
+
+model_1 = Sequential([
+    layers.Conv2D(128, (3, 3), activation='relu', input_shape=(40, 40, 3)),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D(pool_size=(2, 2)),
+    layers.Dropout(0.5),
+    layers.Flatten(),
+    layers.Dense(256, activation='relu'),
+    layers.Dense(256, activation='relu'),
+    layers.Dense(num_classes, activation='softmax')
+])
+
+
+### model_08-01 image size 30x30
+
+- looks good
+- final model
+
+
+### model_08-02 test_size = 0.2, epochs = 10
+
+- looks good

@@ -5,10 +5,11 @@ import sys
 import tensorflow as tf
 
 from sklearn.model_selection import train_test_split
+from tensorflow.keras import layers
 
 EPOCHS = 10
-IMG_WIDTH = 50
-IMG_HEIGHT = 50
+IMG_WIDTH = 30
+IMG_HEIGHT = 30
 NUM_CATEGORIES = 43
 TEST_SIZE = 0.2
 
@@ -31,10 +32,12 @@ def main():
     x_train, x_test, y_train, y_test = train_test_split(
         np.array(images), np.array(labels), test_size=TEST_SIZE
     )
-
+    
+    # Standardize color values
+    x_train, x_test = x_train / 255.0, x_test / 255.0
+    
     # Get a compiled neural network
     model = get_model()
-
     # Fit model on training data
     model.fit(x_train, y_train, epochs=EPOCHS)
 
@@ -108,7 +111,28 @@ def get_model():
     The output layer should have `NUM_CATEGORIES` units, one for each category.
     """
 
-
+    # Model version 08-01
+    model = tf.keras.models.Sequential([
+        layers.Conv2D(128, (3, 3), activation='relu', input_shape=(30, 30, 3)),
+        layers.MaxPooling2D(pool_size=(2, 2)),
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.MaxPooling2D(pool_size=(2, 2)),
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.MaxPooling2D(pool_size=(2, 2)),
+        layers.Dropout(0.5),
+        layers.Flatten(),
+        layers.Dense(256, activation='relu'),
+        layers.Dense(256, activation='relu'),
+        layers.Dense(NUM_CATEGORIES, activation='softmax')
+    ])
+    
+    model.compile(
+        optimizer='adam',
+        loss='categorical_crossentropy',
+        metrics=['accuracy']
+    )
+    
+    return model
 
 if __name__ == "__main__":
     main()
